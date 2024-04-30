@@ -3,7 +3,8 @@
 
 # https://github.com/osrf/docker_images/blob/master/README.md#ros---1
 # https://github.com/osrf/docker_images/blob/master/ros/galactic/ubuntu/focal/desktop/Dockerfile
-FROM osrf/ros:galactic-desktop
+ARG ROS_DISTRO=iron
+FROM osrf/ros:${ROS_DISTRO}-desktop
 
 ARG user_id=1000
 ARG ros_ws=/home/dockeruser/dev_ws
@@ -13,8 +14,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Install packages.
 RUN apt-get update && apt-get install -y \
     ros-${ROS_DISTRO}-gazebo-* \
+    joint-state-publisher-gui \
     python-is-python3 \
-    nano \
+    vim \
     less \
     xterm
 #    && rm -rf /var/lib/apt/lists/*
