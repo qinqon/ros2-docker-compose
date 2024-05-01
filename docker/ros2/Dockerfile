@@ -14,7 +14,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Install packages.
 RUN apt-get update && apt-get install -y \
     ros-${ROS_DISTRO}-gazebo-* \
-    joint-state-publisher-gui \
+    ros-${ROS_DISTRO}-joint-state-publisher-gui \
+    ros-${ROS_DISTRO}-ros2-control \
+    ros-${ROS_DISTRO}-ros2-controllers \
+    ros-${ROS_DISTRO}-gazebo-ros2-control \
     python-is-python3 \
     vim \
     less \

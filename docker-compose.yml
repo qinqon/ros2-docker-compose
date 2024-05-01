@@ -27,7 +27,6 @@ services:
       - WAYLAND_DISPLAY
       - XDG_RUNTIME_DIR
       - PULSE_SERVER
-
     volumes:
       - ./:/home/dockeruser/project
       - ./dev_ws:/home/dockeruser/dev_ws
