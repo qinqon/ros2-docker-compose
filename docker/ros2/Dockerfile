@@ -47,6 +47,9 @@ RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
 RUN echo "source /usr/share/colcon_cd/function/colcon_cd.sh" >> ~/.bashrc \
     && echo "export _colcon_cd_root=${ros_ws}" >> ~/.bashrc
 
+# https://github.com/ros2/ros2/issues/1531
+RUN echo "ulimit -n 1024" >> ~/.bashrc
+
 # This entrypoint is from base image.
 # See https://github.com/osrf/docker_images/blob/master/ros/galactic/ubuntu/focal/ros-core/ros_entrypoint.sh
 ENTRYPOINT ["/ros_entrypoint.sh"]
