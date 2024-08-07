@@ -1,7 +1,9 @@
 services:
   ros2:
     build:
-      context: docker/ros2
+      platforms:
+      - "linux/arm64"
+      context: docker/ros2/jazzy
       args:
         - user_id=1000
         - ros_ws=/home/dockeruser/dev_ws
