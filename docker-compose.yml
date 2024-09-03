@@ -1,12 +1,19 @@
 services:
+  micro-ros:
+    network_mode: host
+    privileged: true
+    image: microros/micro-ros-agent:iron
+    command: serial --dev /dev/ttyTHS1 -v6
+    volumes:
+    - /dev/:/dev/
   ros2:
+    network_mode: host
+    privileged: true
     build:
-      platforms:
-      - "linux/arm64"
       context: docker/ros2/jazzy
       args:
-        - user_id=1000
-        - ros_ws=/home/dockeruser/dev_ws
+        - user_id=1001
+        - ros_ws=/home/ubuntu/dev_ws
 
     # Enabling GPU access with Compose
     # https://docs.docker.com/compose/gpu-support/
@@ -28,10 +35,10 @@ services:
       - XDG_RUNTIME_DIR
       - PULSE_SERVER
     volumes:
-      - ./:/home/dockeruser/project
-      - ./dev_ws:/home/dockeruser/dev_ws
-      - ./docker/ros2/.ros:/home/dockeruser/.ros
-      - ./docker/ros2/.gazebo/:/home/dockeruser/.gazebo
+      - ./:/home/ubuntu/project
+      - ./dev_ws:/home/ubuntu/dev_ws
+      - ./docker/ros2/.ros:/home/ubuntu/.ros
+      - ./docker/ros2/.gazebo/:/home/ubuntu/.gazebo
       - /dev/:/dev/
 
       # WSLg settings
