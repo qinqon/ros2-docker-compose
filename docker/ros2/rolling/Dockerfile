@@ -6,8 +6,7 @@
 ARG ROS_DISTRO=rolling
 FROM ros:${ROS_DISTRO}-ros-base-noble
 
-ARG user_id=1000
-ARG ros_ws=/home/dockeruser/dev_ws
+ARG ros_ws=/home/ubuntu/dev_ws
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -15,29 +14,31 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-${ROS_DISTRO}-desktop \
     ros-${ROS_DISTRO}-gazebo-* \
-    ros-${ROS_DISTRO}-joint-state-publisher-gui \
     ros-${ROS_DISTRO}-ros2-control \
     ros-${ROS_DISTRO}-ros2-control-test-assets \
     ros-${ROS_DISTRO}-ros2-controllers \
-    ros-${ROS_DISTRO}-gazebo-ros2-control \
     ros-${ROS_DISTRO}-hardware-interface-testing \
+    ros-${ROS_DISTRO}-xacro \
+    ros-${ROS_DISTRO}-joint-state-publisher-gui \
     python-is-python3 \
     pre-commit \
     vim \
     less \
+    joystick \
     xterm
-#    && rm -rf /var/lib/apt/lists/*
+
+RUN adduser ubuntu sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # Switch to a non-root user.
-RUN useradd -m --uid ${user_id} dockeruser
-USER dockeruser
+USER ubuntu
 
 # Working directory
-WORKDIR /home/dockeruser
+WORKDIR /home/ubuntu
 
 # ENVs
-ENV HOME=/home/dockeruser
-ENV PATH="/home/dockeruser/.local/bin:${PATH}"
+ENV HOME=/home/ubuntu
+ENV PATH="/home/ubuntu/.local/bin:${PATH}"
 
 # Force Python stdout and stderr streams to be unbuffered.
 ENV PYTHONUNBUFFERED 1
